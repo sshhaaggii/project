@@ -1,0 +1,20 @@
+inventory = {
+    'item1': {'quantity': 100, 'price': 10.99},
+    'item2': {'quantity': 50, 'price': 5.99},
+}
+
+def add_item(item_name, quantity, price):
+    inventory[item_name] = {'quantity': quantity, 'price': price}
+
+def update_quantity(item_name, new_quantity):
+    inventory[item_name]['quantity'] = new_quantity
+
+def delete_item(item_name):
+    del inventory[item_name]
+
+add_item('item3', 75, 8.49)
+update_quantity('item1', 120)
+delete_item('item2')
+
+for item, details in inventory.items():
+    print(f"{item}: Quantity={details['quantity']}, Price=${details['price']:.2f}")
