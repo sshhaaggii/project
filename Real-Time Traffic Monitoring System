@@ -1,0 +1,31 @@
+import psutil
+import time
+
+def get_network_stats():
+    """
+    Get network statistics (bytes sent and received).
+    """
+    net_stats = psutil.net_io_counters()
+    return net_stats.bytes_sent, net_stats.bytes_recv
+
+def display_traffic_stats():
+    """
+    Display real-time traffic statistics.
+    """
+    print("Real-Time Traffic Monitoring (Press Ctrl+C to exit):")
+    try:
+        while True:
+            sent_before, recv_before = get_network_stats()
+            time.sleep(1)  # Wait for 1 second
+            sent_after, recv_after = get_network_stats()
+
+            sent_speed = (sent_after - sent_before) / 1024  # KB/s
+            recv_speed = (recv_after - recv_before) / 1024  # KB/s
+
+            print(f"Sent: {sent_speed:.2f} KB/s | Received: {recv_speed:.2f} KB/s")
+
+    except KeyboardInterrupt:
+        print("\nMonitoring stopped. Have a great day!")
+
+if __name__ == "__main__":
+    display_traffic_stats()
